@@ -1,17 +1,53 @@
 package com.farm;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.farm.dto.Farm;
+import com.farm.service.FarmService;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("Farm simulator 2026");
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Напиши свое имя:");
+        String name = scanner.nextLine();
+
+        Farm farm = new Farm(name);
+        FarmService farmService = new FarmService();
+        System.out.println(String.format("Добро пожаловать на твою ферму %s!",farm.getName()));
+        System.out.println("Готов купить своих первых животных для твоей фермы? Да/Нет");
+        String answer =  scanner.nextLine();
+        boolean game;
+        if (answer.toLowerCase().equals("да")){
+            game=true;
+            do {
+                System.out.println("------------------------");
+                System.out.println("█████  ████  ████  █   █");
+                System.out.println("█      █  █  █  █  ██ ██");
+                System.out.println("████   ████  ████  █ █ █");
+                System.out.println("█      █  █  █ █   █   █");
+                System.out.println("█      █  █  █  █  █   █");
+                System.out.println("------------------------");
+                System.out.println();
+                farmService.createFarmAnimals();
+                System.out.println("Соберем продукты с твоих животных? Да/Нет");
+                String a=scanner.nextLine();
+                if (a.toLowerCase().equals("да")){
+                    farmService.productAssembler(farmService.getAnimals());
+                    System.out.println("У тебя столько продуктов: "+farmService.getProducts());
+                    game=false;
+                }else {
+                    game=false;
+                }
+            }while (game);
+
+        }else{
+            game=false;
+            System.out.println(String.format("До скорой всетречи, %s!",farm.getName()));
         }
+
     }
 }
