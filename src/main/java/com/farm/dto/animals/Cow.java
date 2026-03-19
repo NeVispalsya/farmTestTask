@@ -6,6 +6,7 @@ import com.farm.dto.Product;
 import com.farm.dto.products.Milk;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@ToString(callSuper = true)
 public class Cow extends Animal {
 
     private static final String[] NAMES = {
@@ -20,17 +22,11 @@ public class Cow extends Animal {
             "Звёздочка", "Малинка", "Красотка", "Пятнашка", "Дайна"
     };
 
-    private static final int minProduct = 8;
-    private static final int maxProduct = 12;
-
-    private UUID id;
-    private String name;
     private final double price = 500d;
 
     public Cow() {
-        super(NAMES);
+        super(NAMES, 8, 12);
     }
-
 
     @Override
     protected Product createProduct() {
