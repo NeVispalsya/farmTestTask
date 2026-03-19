@@ -1,7 +1,7 @@
 package com.farm.dto.animals;
 
 import com.farm.dto.Animal;
-import com.farm.dto.Producer;
+//import com.farm.dto.Producer;
 import com.farm.dto.Product;
 import com.farm.dto.products.Milk;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class Cow extends Animal {
     }
 
     @Override
-    protected Product createProduct() {
+    public Product createProduct() {
         return new Milk();
     }
 }

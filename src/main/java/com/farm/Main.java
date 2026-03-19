@@ -37,7 +37,9 @@ public class Main {
                 String a=scanner.nextLine();
                 if (a.toLowerCase().equals("да")){
                     farmService.productAssembler(farmService.getAnimals());
-                    System.out.println("У тебя столько продуктов: "+farmService.getProducts());
+                    System.out.println("Ты собрал столько продуктов: ");
+                    farmService.showAllProduct();
+                    //Заглушка чтобы защититься от бесконечного цикла
                     game=false;
                 }else {
                     game=false;

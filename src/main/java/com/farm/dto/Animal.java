@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @ToString
-public abstract class Animal implements Producer {
+public class Animal{
     private final UUID id;
     private final String name;
     private double price;
@@ -24,16 +24,17 @@ public abstract class Animal implements Producer {
         this.maxProduct = maxProduct;
     }
 
-    protected abstract Product createProduct();
-
-    @Override
-    public List<Product> produce() {
-        List<Product> result = new ArrayList<>();
-        int amount = minProduct + (int) (Math.random() * (maxProduct - minProduct + 1));
-        for (int i = 0; i < amount; i++) {
-            result.add(createProduct());
-        }
-
-        return result;
+    public Product createProduct(){
+        return new Product();
     }
+
+//    @Override
+//    public List<Product> produce() {
+//        List<Product> result = new ArrayList<>();
+//        int amount = minProduct + (int) (Math.random() * (maxProduct - minProduct + 1));
+//        for (int i = 0; i < amount; i++) {
+//            result.add(createProduct());
+//        }
+//        return result;
+//    }
 }

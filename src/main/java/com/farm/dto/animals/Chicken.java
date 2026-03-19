@@ -26,7 +26,7 @@ public class Chicken extends Animal {
     }
 
     @Override
-    protected Product createProduct() {
+    public Product createProduct() {
         return new Egg();
     }
 }
