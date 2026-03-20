@@ -33,6 +33,7 @@ public class Main {
                 System.out.println("------------------------");
                 System.out.println();
                 farmService.createFarmAnimals();
+                farmService.showAllAnimal();
                 System.out.println("Соберем продукты с твоих животных? Да/Нет");
                 String a=scanner.nextLine();
                 if (a.toLowerCase().equals("да")){

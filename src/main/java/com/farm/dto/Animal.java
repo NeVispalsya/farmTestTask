@@ -28,13 +28,12 @@ public class Animal{
         return new Product();
     }
 
-//    @Override
-//    public List<Product> produce() {
-//        List<Product> result = new ArrayList<>();
-//        int amount = minProduct + (int) (Math.random() * (maxProduct - minProduct + 1));
-//        for (int i = 0; i < amount; i++) {
-//            result.add(createProduct());
-//        }
-//        return result;
-//    }
+    public List<Product> produce() {
+        List<Product> result = new ArrayList<>();
+        int amount = minProduct + (int) (Math.random() * (maxProduct - minProduct + 1));
+        for (int i = 0; i < amount; i++) {
+            result.add(createProduct());
+        }
+        return result;
+    }
 }
