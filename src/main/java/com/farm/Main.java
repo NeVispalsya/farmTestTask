@@ -2,72 +2,25 @@ package com.farm;
 
 import com.farm.dto.Farm;
 import com.farm.service.FarmService;
+import com.farm.service.GameService;
 
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         System.out.println("Farm simulator 2026");
-
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Напиши свое имя:");
         String name = scanner.nextLine();
-
         Farm farm = new Farm(name);
         FarmService farmService = new FarmService();
-        System.out.println(String.format("Добро пожаловать на твою ферму %s!", farm.getName()));
+        GameService gameService = new GameService();
+        System.out.printf("Добро пожаловать на твою ферму %s!%n", farm.getName());
         System.out.println("Готов купить своих первых животных для твоей фермы? Да/Нет");
         String answer = scanner.nextLine();
-        boolean game;
-        if (answer.toLowerCase().equals("да")) {
-            game = true;
-            do {
-                System.out.println("------------------------");
-                System.out.println("█████  ████  ████  █   █");
-                System.out.println("█      █  █  █  █  ██ ██");
-                System.out.println("████   ████  ████  █ █ █");
-                System.out.println("█      █  █  █ █   █   █");
-                System.out.println("█      █  █  █  █  █   █");
-                System.out.println("------------------------");
-                System.out.println();
-                farmService.createFarmAnimals();
-                farmService.showAllAnimal();
-                System.out.println("Соберем продукты с твоих животных? Да/Нет");
-                String a = scanner.nextLine();
-                if (a.toLowerCase().equals("да")) {
-                    farmService.productAssembler(farmService.getAnimals());
-                    System.out.println("Ты собрал столько продуктов: ");
-                    farmService.showAllProduct();
-
-                    System.out.println("Ты хочешь продать собранные продукты?");
-                    String saleAnswer = scanner.nextLine();
-
-                    if (saleAnswer.equalsIgnoreCase("да")) {
-                        farmService.saleProducts(farmService.getProducts(), farm);
-                        System.out.printf("Твой баланс - %s%n", farm.getBalance());
-                    }
-                    System.out.println("Готов купить новых животных для твоей фермы? Да/Нет");
-                    String buyAnswer = scanner.nextLine();
-                    if (buyAnswer.equalsIgnoreCase("да")){
-                        farmService.buyAnimals(farm);
-                    }
-
-                    //Заглушка чтобы защититься от бесконечного цикла
-                    game = false;
-
-                } else {
-                    game = false;
-                }
-
-
-            } while (game);
-
+        if (answer.equalsIgnoreCase("да")) {
+                gameService.gameStart(farm,farmService);
         } else {
-            game = false;
-            System.out.println(String.format("До скорой встречи, %s!", farm.getName()));
+            System.out.printf("До скорой встречи, %s!%n", farm.getName());
         }
-
     }
 }

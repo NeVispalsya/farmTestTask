@@ -37,6 +37,7 @@ public class FarmService {
                 animals.add(new Chicken());
                 animals.add(new Chicken());
             }
+            showAllAnimal();
         } else {
             System.out.println("В твоем хлеве уже есть животные...");
         }
@@ -47,11 +48,10 @@ public class FarmService {
         if (animals.isEmpty()) {
             System.out.println("У тебя нет животных");
         } else {
-//            for (Animal animal : animals) {
-//                products.addAll(animal.produce());
-//            }
             animals.forEach(a -> products.addAll(a.produce()));
             System.out.println("Собираем продукты...");
+            System.out.println("Ты собрал столько продуктов: ");
+            showAllProduct();
         }
     }
 
@@ -70,12 +70,8 @@ public class FarmService {
 
     //Показывает все продукты
     public void showAllProduct() {
-//         for(Product product : products){
-//            System.out.print(product.getProductName()+" ");
-//        }
         products.stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
         System.out.printf("%n");
-
     }
 
     private List<Optional<String>> getAnimalsPromptNames() {
@@ -92,30 +88,17 @@ public class FarmService {
         }).collect(Collectors.toList());
     }
 
-
-    ;
-
     //Показывает всех животных
     public void showAllAnimal() {
-//        for (Animal animal : animals) {
-//            System.out.print(animal.getName() + " ");
-//        }
         animals.stream().collect(Collectors.groupingBy(Animal::getClass, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key.getSimpleName()));
-        // Это для того чтобы не слипалось в одну строку
         System.out.printf("%n");
-
-
     }
-
+    //Покупка животных
     public void buyAnimals(Farm farm) {
-//        if (farm.getBalance() < 20) {
-//            System.out.println("У тебя не хватает денег на покупку животных");
-//        }
         if (farm.getBalance() < 1) {
             System.out.println("У тебя не хватает денег на покупку животных");
         }
         Scanner scanner = new Scanner(System.in);
-//        System.out.println("Какое животное ты хочешь купить? Курица или Корова?");
         System.out.print("Какое животное ты хочешь купить? У нас есть: ");
         getAnimalsPromptNames().forEach(n -> n.ifPresent(promptName -> System.out.print(promptName + ", ")));
         String aAn = scanner.nextLine();
@@ -127,10 +110,17 @@ public class FarmService {
                 System.out.println("У тебя не хватает денег... Твой баланс: "+farm.getBalance()+" а цена за 1 курицу: "+ch.getPrice());
                 buyAnimals(farm);
             }else{
+                farm.setBalance(farm.getBalance()-ch.getPrice()*iAn);
                 for (int i = 1; i <= iAn ; i++) {
                     animals.add(new Chicken());
                 }
                 System.out.println(iAn+" куриц добавилось к твоей ферме!");
+                //TODO Та же проблема что и с коровой
+//                System.out.println("Хочешь купить еще жвотных? Да/Нет");
+//                String nw = scanner.nextLine();
+//                if (nw.equalsIgnoreCase("да")){
+//                    buyAnimals(farm);
+//                }
             }
         } else if (aAn.equalsIgnoreCase("корова")) {
             System.out.println("Какое количество коров ты хочешь купить?");
@@ -140,22 +130,23 @@ public class FarmService {
                 System.out.println("У тебя не хватает денег... Твой баланс: "+farm.getBalance()+" а цена за 1 корову: "+cw.getPrice());
                 buyAnimals(farm);
             }else{
+                farm.setBalance(farm.getBalance()-cw.getPrice()*iAn);
                 for (int i = 1; i <= iAn ; i++) {
                     animals.add(new Cow());
                 }
-                System.out.println(iAn+" коров добавилось к твоей ферме!");
-
+                System.out.println("К твоим животным добавилось "+iAn+" коров");
+                //TODO Хотел реализовать дополнительный выбор покупки животного, но почему то оно пропускалось в коде
+//                System.out.println("Хочешь купить еще жвотных? Да/Нет");
+//                String nw = scanner.nextLine();
+//                if (nw.equalsIgnoreCase("да")){
+//                    buyAnimals(farm);
+//                }else{
+//                    showAllAnimal();
+//                }
             }
         }else{
             System.out.println("Такого животного как "+aAn+" нету");
             buyAnimals(farm);
         }
-
-//        //System.out.print("У нас есть: ");
- //      //getAnimalsPromptNames().forEach(n -> n.ifPresent(promptName -> System.out.print(promptName + ", ")));
-//        if (sc.nextLine()) {
-//
-//        }
-
     }
 }
