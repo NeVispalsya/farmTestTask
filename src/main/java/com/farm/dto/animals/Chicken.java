@@ -18,7 +18,7 @@ public class Chicken extends Animal {
             "Клокочка", "Пеструшка", "Рябушка", "Нёсушка", "Золотка",
             "Белочка", "Кудряшка", "Пуговка", "Зоряна"
     };
-
+    private static final String promptName = "курица";
     private final double price = 20d;
 
     public Chicken() {
@@ -29,4 +29,6 @@ public class Chicken extends Animal {
     public Product createProduct() {
         return new Egg();
     }
+
+
 }

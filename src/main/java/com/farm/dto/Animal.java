@@ -10,21 +10,29 @@ import java.util.UUID;
 
 @Getter
 @ToString
-public class Animal{
+public abstract class Animal {
     private final UUID id;
     private final String name;
     private double price;
-    private final int  minProduct;
-    private final int  maxProduct;
+    private final int minProduct;
+    private final int maxProduct;
+
+    @Getter
+    private static final ArrayList<Class<? extends Animal>> instantiatedDerivedTypes = new ArrayList<>();
 
     protected Animal(String[] names, int minProduct, int maxProduct) {
         this.name = names[(int) (Math.random() * names.length)];
         this.id = UUID.randomUUID();
         this.minProduct = minProduct;
         this.maxProduct = maxProduct;
+        Class<? extends Animal> derivedClass = this.getClass();
+        if (!instantiatedDerivedTypes.contains(derivedClass)) {
+            instantiatedDerivedTypes.add(derivedClass);
+        }
     }
 
-    public Product createProduct(){
+
+    public Product createProduct() {
         return new Product();
     }
 
@@ -36,4 +44,5 @@ public class Animal{
         }
         return result;
     }
+
 }

@@ -45,8 +45,9 @@ public class Main {
                     String saleAnswer = scanner.nextLine();
 
                     if (saleAnswer.equalsIgnoreCase("да")) {
-                        farmService.saleProdect(farmService.getProducts(), farm);
-                        System.out.printf("Твой обновленный баланс - %s", farm.getBalance());
+                        farmService.saleProducts(farmService.getProducts(), farm);
+                        System.out.printf("Твой обновленный баланс - %s%n", farm.getBalance());
+                        farmService.buyAnimals(farm, 2, scanner);
                     }
 
                     //Заглушка чтобы защититься от бесконечного цикла
@@ -61,7 +62,7 @@ public class Main {
 
         } else {
             game = false;
-            System.out.println(String.format("До скорой всетречи, %s!", farm.getName()));
+            System.out.println(String.format("До скорой встречи, %s!", farm.getName()));
         }
 
     }

@@ -22,6 +22,8 @@ public class Cow extends Animal {
             "Звёздочка", "Малинка", "Красотка", "Пятнашка", "Дайна"
     };
 
+    private static final String promptName = "корова";
+
     private final double price = 500d;
 
     public Cow() {
@@ -32,4 +34,6 @@ public class Cow extends Animal {
     public Product createProduct() {
         return new Milk();
     }
+
+
 }
