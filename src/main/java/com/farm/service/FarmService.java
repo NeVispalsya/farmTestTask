@@ -10,6 +10,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FarmService {
@@ -45,9 +46,10 @@ public class FarmService {
         if (animals.isEmpty()) {
             System.out.println("У тебя нет животных");
         } else {
-            for (Animal animal : animals) {
-                products.addAll(animal.produce());
-            }
+//            for (Animal animal : animals) {
+//                products.addAll(animal.produce());
+//            }
+            animals.forEach(a -> products.addAll(a.produce()));
             System.out.println("Собираем продукты...");
         }
     }
@@ -73,6 +75,8 @@ public class FarmService {
         products.stream()
                 .collect(Collectors.groupingBy(Product::getProductName, Collectors.counting()))
                 .forEach((key, value) -> System.out.printf("%d %s ", value, key));
+        System.out.printf("%n");
+
     }
 
     //Показывает всех животных
@@ -86,9 +90,21 @@ public class FarmService {
         // Это для того чтобы не слипалось в одну строку
         System.out.printf("%n");
     }
-//    public List<Animal> buyAnimals(Farm farm,int anim){
-//        if(farm.getBalance()<20){
+
+//    public List<Animal> buyAnimals(Farm farm, int anim, Scanner sc) {
+////        if (farm.getBalance() < 20) {
+////            System.out.println("У тебя не хватает денег на покупку животных");
+////        }
+//        List<String> animalsName = new ArrayList<>().addAll({"курица", "корова"});
+//        if (farm.getBalance() < 1) {
 //            System.out.println("У тебя не хватает денег на покупку животных");
+//        }
+//
+//        System.out.println("Какое животное ты хочешь купить?");
+//        System.out.println("У нас есть: курица, корова");
+//
+//        if (sc.nextLine()) {
+//
 //        }
 //
 //    }
