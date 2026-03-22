@@ -46,8 +46,12 @@ public class Main {
 
                     if (saleAnswer.equalsIgnoreCase("да")) {
                         farmService.saleProducts(farmService.getProducts(), farm);
-                        System.out.printf("Твой обновленный баланс - %s%n", farm.getBalance());
-                        farmService.buyAnimals(farm, 2, scanner);
+                        System.out.printf("Твой баланс - %s%n", farm.getBalance());
+                    }
+                    System.out.println("Готов купить новых животных для твоей фермы? Да/Нет");
+                    String buyAnswer = scanner.nextLine();
+                    if (buyAnswer.equalsIgnoreCase("да")){
+                        farmService.buyAnimals(farm);
                     }
 
                     //Заглушка чтобы защититься от бесконечного цикла

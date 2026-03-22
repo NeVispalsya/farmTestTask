@@ -20,6 +20,9 @@ public class FarmService {
     @Getter
     private List<Product> products = new ArrayList<>();
 
+    private Chicken ch = new Chicken();
+    private Cow cw = new Cow();
+
     @Override
     public String toString() {
         return "FarmService{" + "animals=" + animals + ", products=" + products + '}';
@@ -104,17 +107,52 @@ public class FarmService {
 
     }
 
-    public void buyAnimals(Farm farm, int anim, Scanner sc) {
+    public void buyAnimals(Farm farm) {
 //        if (farm.getBalance() < 20) {
 //            System.out.println("У тебя не хватает денег на покупку животных");
 //        }
         if (farm.getBalance() < 1) {
             System.out.println("У тебя не хватает денег на покупку животных");
         }
-
-        System.out.println("Какое животное ты хочешь купить?");
-        System.out.print("У нас есть: ");
+        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Какое животное ты хочешь купить? Курица или Корова?");
+        System.out.print("Какое животное ты хочешь купить? У нас есть: ");
         getAnimalsPromptNames().forEach(n -> n.ifPresent(promptName -> System.out.print(promptName + ", ")));
+        String aAn = scanner.nextLine();
+        if (aAn.equalsIgnoreCase("курица")){
+            System.out.println("Какое количество куриц ты хочешь купить?");
+            int iAn = scanner.nextInt();
+            //TODO Тут стоит придумать, как брать прайс у животных, пока как то так
+            if (farm.getBalance()<ch.getPrice()*iAn){
+                System.out.println("У тебя не хватает денег... Твой баланс: "+farm.getBalance()+" а цена за 1 курицу: "+ch.getPrice());
+                buyAnimals(farm);
+            }else{
+                for (int i = 1; i <= iAn ; i++) {
+                    animals.add(new Chicken());
+                }
+                System.out.println(iAn+" куриц добавилось к твоей ферме!");
+            }
+        } else if (aAn.equalsIgnoreCase("корова")) {
+            System.out.println("Какое количество коров ты хочешь купить?");
+            int iAn = scanner.nextInt();
+            //TODO Тут стоит придумать, как брать прайс у животных, пока как то так
+            if (farm.getBalance()<cw.getPrice()*iAn){
+                System.out.println("У тебя не хватает денег... Твой баланс: "+farm.getBalance()+" а цена за 1 корову: "+cw.getPrice());
+                buyAnimals(farm);
+            }else{
+                for (int i = 1; i <= iAn ; i++) {
+                    animals.add(new Cow());
+                }
+                System.out.println(iAn+" коров добавилось к твоей ферме!");
+
+            }
+        }else{
+            System.out.println("Такого животного как "+aAn+" нету");
+            buyAnimals(farm);
+        }
+
+//        //System.out.print("У нас есть: ");
+ //      //getAnimalsPromptNames().forEach(n -> n.ifPresent(promptName -> System.out.print(promptName + ", ")));
 //        if (sc.nextLine()) {
 //
 //        }
