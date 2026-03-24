@@ -15,53 +15,44 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FarmService {
-    @Getter
-    private List<Animal> animals = new ArrayList<>();
-    @Getter
-    private List<Product> products = new ArrayList<>();
-
     private Chicken ch = new Chicken();
     private Cow cw = new Cow();
 
-    @Override
-    public String toString() {
-        return "FarmService{" + "animals=" + animals + ", products=" + products + '}';
-    }
 
     //Добавление перового количества коров и кур
-    public void createFarmAnimals() {
-        if (animals.isEmpty()) {
+    public void createFarmAnimals(Farm farm) {
+        if (farm.getAnimals().isEmpty()) {
             System.out.println("Закупаем коров и куриц для твоего хлева...");
             for (int i = 0; i < 10; i++) {
-                animals.add(new Cow());
-                animals.add(new Chicken());
-                animals.add(new Chicken());
+                farm.getAnimals().add(new Cow());
+                farm.getAnimals().add(new Chicken());
+                farm.getAnimals().add(new Chicken());
             }
-            showAllAnimal();
+            System.out.println("У тебя такие животные: "+farm.getAnimals());
         } else {
             System.out.println("В твоем хлеве уже есть животные...");
         }
     }
 
     //сбор урожая
-    public void productAssembler(List<Animal> animals) {
-        if (animals.isEmpty()) {
+    public void productAssembler(Farm farm) {
+        if (farm.getAnimals().isEmpty()) {
             System.out.println("У тебя нет животных");
         } else {
-            animals.forEach(a -> products.addAll(a.produce()));
+            farm.getAnimals().forEach(a -> farm.getProducts().addAll(a.produce()));
             System.out.println("Собираем продукты...");
             System.out.println("Ты собрал столько продуктов: ");
-            showAllProduct();
+            System.out.println(farm.getProducts());
         }
     }
 
     //продажа урожая
-    public void saleProducts(List<Product> products, Farm farm) {
-        if (products.isEmpty()) {
+    public void saleProducts(Farm farm) {
+        if (farm.getProducts().isEmpty()) {
             System.out.println("У тебя нет продуктов чтобы продать");
         } else {
             double money = farm.getBalance();
-            for (Product product : products) {
+            for (Product product : farm.getProducts()) {
                 money += product.getPrice();
             }
             farm.setBalance(money);
@@ -69,9 +60,10 @@ public class FarmService {
     }
 
     //Показывает все продукты
-    public void showAllProduct() {
-        products.stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
+    public List<Product> showAllProduct(Farm farm) {
+        farm.getProducts().stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
         System.out.printf("%n");
+        return farm.getProducts();
     }
 
     private List<Optional<String>> getAnimalsPromptNames() {
@@ -89,9 +81,10 @@ public class FarmService {
     }
 
     //Показывает всех животных
-    public void showAllAnimal() {
-        animals.stream().collect(Collectors.groupingBy(Animal::getClass, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key.getSimpleName()));
+    public List<Animal> showAllAnimal(Farm farm) {
+        farm.getAnimals().stream().collect(Collectors.groupingBy(Animal::getClass, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key.getSimpleName()));
         System.out.printf("%n");
+        return farm.getAnimals();
     }
     //Покупка животных
     public void buyAnimals(Farm farm) {
@@ -112,7 +105,7 @@ public class FarmService {
             }else{
                 farm.setBalance(farm.getBalance()-ch.getPrice()*iAn);
                 for (int i = 1; i <= iAn ; i++) {
-                    animals.add(new Chicken());
+                    farm.getAnimals().add(new Chicken());
                 }
                 System.out.println(iAn+" куриц добавилось к твоей ферме!");
                 //TODO Та же проблема что и с коровой
@@ -132,7 +125,7 @@ public class FarmService {
             }else{
                 farm.setBalance(farm.getBalance()-cw.getPrice()*iAn);
                 for (int i = 1; i <= iAn ; i++) {
-                    animals.add(new Cow());
+                    farm.getAnimals().add(new Cow());
                 }
                 System.out.println("К твоим животным добавилось "+iAn+" коров");
                 //TODO Хотел реализовать дополнительный выбор покупки животного, но почему то оно пропускалось в коде
