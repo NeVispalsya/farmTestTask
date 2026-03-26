@@ -1,6 +1,7 @@
 package com.farm.dto;
 
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@EqualsAndHashCode
 @ToString
 public abstract class Animal {
     private final UUID id;
     private final String name;
-    private double price;
     private final int minProduct;
     private final int maxProduct;
 
@@ -44,5 +45,7 @@ public abstract class Animal {
         }
         return result;
     }
+
+
 
 }

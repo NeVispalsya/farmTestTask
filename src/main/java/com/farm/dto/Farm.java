@@ -1,9 +1,12 @@
 package com.farm.dto;
 
+import com.farm.factory.ChickenFactory;
+import com.farm.factory.CowFactory;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Farm {
@@ -12,7 +15,7 @@ public class Farm {
     @Getter @Setter
     private double balance;
     @Getter
-    private List<Animal> animals = new ArrayList<>();
+    private HashMap<Animal,Integer> animals = new HashMap<>();
     @Getter
     private List<Product> products = new ArrayList<>();
 

@@ -9,18 +9,18 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Farm simulator 2026");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Напиши свое имя:");
+        System.out.println("Enter your name:");
         String name = scanner.nextLine();
         Farm farm = new Farm(name);
         FarmService farmService = new FarmService();
         GameService gameService = new GameService();
-        System.out.printf("Добро пожаловать на твою ферму %s!%n", farm.getName());
-        System.out.println("Готов купить своих первых животных для твоей фермы? Да/Нет");
+        System.out.printf("Welcome to your farm %s!%n", farm.getName());
+        System.out.println("Ready to buy your first animals for your farm? Yes/No");
         String answer = scanner.nextLine();
-        if (answer.equalsIgnoreCase("да")) {
+        if (answer.equalsIgnoreCase("yes")) {
                 gameService.gameStart(farm,farmService);
         } else {
-            System.out.printf("До скорой встречи, %s!%n", farm.getName());
+            System.out.printf("See you soon, %s!%n", farm.getName());
         }
     }
 }

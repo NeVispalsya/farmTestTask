@@ -1,14 +1,9 @@
-package com.farm.dto.animals;
+package com.farm.dto;
 
-import com.farm.dto.Animal;
-import com.farm.dto.Product;
-import com.farm.dto.products.Egg;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,7 +14,7 @@ public class Chicken extends Animal {
             "Белочка", "Кудряшка", "Пуговка", "Зоряна"
     };
     private static final String promptName = "курица";
-    private final double price = 20d;
+
 
     public Chicken() {
         super(NAMES, 0, 1);

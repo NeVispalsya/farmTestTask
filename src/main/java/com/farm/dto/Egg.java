@@ -1,6 +1,5 @@
-package com.farm.dto.products;
+package com.farm.dto;
 
-import com.farm.dto.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
