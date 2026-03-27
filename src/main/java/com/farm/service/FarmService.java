@@ -2,29 +2,17 @@ package com.farm.service;
 import com.farm.dto.Animal;
 import com.farm.dto.Farm;
 import com.farm.dto.Product;
-import com.farm.dto.Chicken;
-import com.farm.dto.Cow;
-import com.farm.factory.ChickenFactory;
-import com.farm.factory.CowFactory;
-
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FarmService {
-    CowFactory cowFactory;
-    ChickenFactory chickenFactory;
-
 
     public void addAnimal(Farm farm, Animal animal, int amount){
         farm.getAnimals().merge(animal,amount,Integer::sum);
     }
 
-    //сбор урожая
-    public List<Product> productAssembler(Farm farm) {
+    public List<Product> CollectProducts(Farm farm) {
         if (farm.getAnimals().isEmpty()) {
             System.out.println("You don't have animals");
         } else {
@@ -43,10 +31,10 @@ public class FarmService {
         return farm.getProducts();
     }
 
-    //Показывает все продукты
     public List<Product> getAllProduct(Farm farm) {
-        farm.getProducts().stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
-        System.out.printf("%n");
+//        farm.getProducts().stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
+//        System.out.printf("%n");
+        System.out.println(farm.getProducts());
         return farm.getProducts();
     }
 }

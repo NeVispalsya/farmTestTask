@@ -7,10 +7,18 @@ import com.farm.factory.CowFactory;
 import java.util.Scanner;
 
 public class GameService {
-    ChickenFactory chickenFactory = new ChickenFactory();
-    CowFactory cowFactory = new CowFactory();
-    BuyService buyService = new BuyService();
-    FarmService farmService = new FarmService();
+    ChickenFactory chickenFactory;
+    CowFactory cowFactory;
+    FarmService farmService;
+    BuyService buyService;
+
+    public GameService(ChickenFactory chickenFactory, CowFactory cowFactory, FarmService farmService, BuyService buyService) {
+        this.chickenFactory = chickenFactory;
+        this.cowFactory = cowFactory;
+        this.farmService = farmService;
+        this.buyService = buyService;
+    }
+
     Scanner scanner = new Scanner(System.in);
     public void gameStart(Farm farm, FarmService farmService){
         System.out.println("------------------------");
@@ -32,7 +40,7 @@ public class GameService {
         System.out.println("Should we collect food from your animals? Yes/No");
         String a = scanner.nextLine();
         if (a.equalsIgnoreCase("yes")) {
-            farmService.productAssembler(farm);
+            farmService.CollectProducts(farm);
             System.out.println("Do you want to sell the products you've collected? Yes/No");
             String saleAnswer = scanner.nextLine();
             if (saleAnswer.equalsIgnoreCase("yes")) {
@@ -49,7 +57,7 @@ public class GameService {
     }
     public void gameMidl(Farm farm, FarmService farmService, BuyService buyService){
         for (int i = 0; i < 7; i++) {
-            farmService.productAssembler(farm);
+            farmService.CollectProducts(farm);
             System.out.println("Do you want to sell the products you've collected? Yes/No");
             String saleAnswer = scanner.nextLine();
             if (saleAnswer.equalsIgnoreCase("yes")) {
@@ -69,7 +77,7 @@ public class GameService {
         String weekAns = scanner.nextLine();
         if(weekAns.equalsIgnoreCase("yes")){
             for (int i = 1; i <= 7; i++) {
-                farmService.productAssembler(farm);
+                farmService.CollectProducts(farm);
             }
             gameEnd(farm,farmService);
         } else if (weekAns.equalsIgnoreCase("no")){

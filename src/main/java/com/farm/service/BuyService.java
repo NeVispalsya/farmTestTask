@@ -5,22 +5,27 @@ import com.farm.dto.Product;
 import com.farm.factory.ChickenFactory;
 import com.farm.factory.CowFactory;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
 public class BuyService {
-    CowFactory cowFactory = new CowFactory();
-    ChickenFactory chickenFactory = new ChickenFactory();
-    FarmService farmService = new FarmService();
+   private final CowFactory cowFactory;
+   private final ChickenFactory chickenFactory;
+   private final FarmService farmService;
+
+    public BuyService(CowFactory cowFactory, ChickenFactory chickenFactory, FarmService farmService) {
+        this.cowFactory = cowFactory;
+        this.chickenFactory = chickenFactory;
+        this.farmService = farmService;
+    }
 
     public void buyAnimal(Farm farm){
-        Scanner scanner = new Scanner(System.in);
         String availableTypes = farm.getAnimals().keySet().stream()
                 .map(animal -> animal.getClass().getSimpleName())
                 .distinct()
                 .collect(Collectors.joining(", "));
+        Scanner scanner = new Scanner(System.in);
         System.out.print("What kind of animal do you want to buy? We have: "+availableTypes);
         String answ = scanner.nextLine();
         if(answ.equalsIgnoreCase("chicken")){
