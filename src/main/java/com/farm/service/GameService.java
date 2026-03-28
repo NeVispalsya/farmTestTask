@@ -1,6 +1,7 @@
 package com.farm.service;
 
 import com.farm.dto.Farm;
+import com.farm.dto.Product;
 import com.farm.factory.ChickenFactory;
 import com.farm.factory.CowFactory;
 
@@ -11,16 +12,19 @@ public class GameService {
     CowFactory cowFactory;
     FarmService farmService;
     BuyService buyService;
+    PrintService printService;
 
-    public GameService(ChickenFactory chickenFactory, CowFactory cowFactory, FarmService farmService, BuyService buyService) {
+    public GameService(ChickenFactory chickenFactory, CowFactory cowFactory, FarmService farmService, BuyService buyService, PrintService printService) {
         this.chickenFactory = chickenFactory;
         this.cowFactory = cowFactory;
         this.farmService = farmService;
         this.buyService = buyService;
+        this.printService = printService;
     }
 
     Scanner scanner = new Scanner(System.in);
-    public void gameStart(Farm farm, FarmService farmService){
+
+    public void gameStart(Farm farm, FarmService farmService) {
         System.out.println("------------------------");
         System.out.println("█████  ████  ████  █   █");
         System.out.println("█      █  █  █  █  ██ ██");
@@ -31,16 +35,19 @@ public class GameService {
         System.out.println();
         if (farm.getAnimals().isEmpty()) {
             System.out.println("We are purchasing 10 cows and 20 chickens for your barn...");
-            farmService.addAnimal(farm,cowFactory.createAnimal(),10);
-            farmService.addAnimal(farm,chickenFactory.createAnimal(),20);
-            System.out.println("You have such animals: "+farm.getAnimals().entrySet());
+            farmService.addAnimal(farm, cowFactory.createAnimal(), 10);
+            farmService.addAnimal(farm, chickenFactory.createAnimal(), 20);
+            System.out.println("You have such animals: ");
+            printService.print(farm.getAnimals());
         } else {
             System.out.println("There are already animals in your barn...");
         }
         System.out.println("Should we collect food from your animals? Yes/No");
         String a = scanner.nextLine();
         if (a.equalsIgnoreCase("yes")) {
-            farmService.CollectProducts(farm);
+            farmService.collectProducts(farm);
+            System.out.println("You have collected so many products: ");
+            printService.print(farm.getProducts());
             System.out.println("Do you want to sell the products you've collected? Yes/No");
             String saleAnswer = scanner.nextLine();
             if (saleAnswer.equalsIgnoreCase("yes")) {
@@ -52,12 +59,13 @@ public class GameService {
             if (buyAnswer.equalsIgnoreCase("yes")) {
                 buyService.buyAnimal(farm);
             }
-            gameLate(farm,farmService,buyService);
+            gameLate(farm, farmService, buyService);
         }
     }
-    public void gameMidl(Farm farm, FarmService farmService, BuyService buyService){
+
+    public void gameMidl(Farm farm, FarmService farmService, BuyService buyService) {
         for (int i = 0; i < 7; i++) {
-            farmService.CollectProducts(farm);
+            farmService.collectProducts(farm);
             System.out.println("Do you want to sell the products you've collected? Yes/No");
             String saleAnswer = scanner.nextLine();
             if (saleAnswer.equalsIgnoreCase("yes")) {
@@ -70,27 +78,33 @@ public class GameService {
                 buyService.buyAnimal(farm);
             }
         }
-        gameEnd(farm,farmService);
+
+        gameEnd(farm, farmService);
     }
-    public void gameLate(Farm farm, FarmService farmService,BuyService buyService){
+
+    public void gameLate(Farm farm, FarmService farmService, BuyService buyService) {
         System.out.println("Do you want to harvest quickly in a week (7 days)? Yes/No");
         String weekAns = scanner.nextLine();
-        if(weekAns.equalsIgnoreCase("yes")){
+        if (weekAns.equalsIgnoreCase("yes")) {
             for (int i = 1; i <= 7; i++) {
-                farmService.CollectProducts(farm);
+                farmService.collectProducts(farm);
             }
-            gameEnd(farm,farmService);
-        } else if (weekAns.equalsIgnoreCase("no")){
+            printService.print(farm.getProducts());
+            gameEnd(farm, farmService);
+        } else if (weekAns.equalsIgnoreCase("no")) {
             System.out.println("Then let's assemble it manually :3");
-            gameMidl(farm,farmService,buyService);
+            gameMidl(farm, farmService, buyService);
         }
     }
-    public void gameEnd(Farm farm, FarmService farmService){
+
+    public void gameEnd(Farm farm, FarmService farmService) {
         System.out.println("It's been exactly a week since you've been collecting and selling products from your favorite animals...");
         System.out.println("Let's sum it up");
-        System.out.println("You have animals on your farm \n"+farm.getAnimals());
-        System.out.println("Products you have \n"+farm.getProducts());
-        System.out.println("Your balance: "+farm.getBalance());
+        System.out.println("You have animals on your farm \n");
+        printService.print(farm.getAnimals());
+        System.out.println("Products you have \n");
+        printService.print(farm.getProducts());
+        System.out.println("Your balance: " + farm.getBalance());
         System.out.printf("See you soon, %s!%n", farm.getName());
     }
 }

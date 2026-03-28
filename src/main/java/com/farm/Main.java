@@ -6,6 +6,7 @@ import com.farm.factory.CowFactory;
 import com.farm.service.BuyService;
 import com.farm.service.FarmService;
 import com.farm.service.GameService;
+import com.farm.service.PrintService;
 
 import java.util.Scanner;
 public class Main {
@@ -13,8 +14,9 @@ public class Main {
         ChickenFactory chickenFactory = new ChickenFactory();
         CowFactory cowFactory = new CowFactory();
         FarmService farmService = new FarmService();
+        PrintService printService = new PrintService();
         BuyService buyService = new BuyService(cowFactory,chickenFactory,farmService);
-        GameService gameService = new GameService(chickenFactory, cowFactory, farmService, buyService);
+        GameService gameService = new GameService(chickenFactory, cowFactory, farmService, buyService, printService);
 
         System.out.println("Farm simulator 2026");
         Scanner scanner = new Scanner(System.in);

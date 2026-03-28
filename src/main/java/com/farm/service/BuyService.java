@@ -26,7 +26,7 @@ public class BuyService {
                 .distinct()
                 .collect(Collectors.joining(", "));
         Scanner scanner = new Scanner(System.in);
-        System.out.print("What kind of animal do you want to buy? We have: "+availableTypes);
+        System.out.print("What kind of animal do you want to buy? We have: "+availableTypes+"\n");
         String answ = scanner.nextLine();
         if(answ.equalsIgnoreCase("chicken")){
             Scanner sc = new Scanner(System.in);

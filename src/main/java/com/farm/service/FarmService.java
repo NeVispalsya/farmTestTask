@@ -12,7 +12,7 @@ public class FarmService {
         farm.getAnimals().merge(animal,amount,Integer::sum);
     }
 
-    public List<Product> CollectProducts(Farm farm) {
+    public List<Product> collectProducts(Farm farm) {
         if (farm.getAnimals().isEmpty()) {
             System.out.println("You don't have animals");
         } else {
@@ -24,17 +24,15 @@ public class FarmService {
                 }
             }
             System.out.println("We are collecting food...");
-            System.out.println("You have collected so many products: ");
-            System.out.println(getAllProduct(farm));
             return farm.getProducts();
         }
         return farm.getProducts();
     }
 
-    public List<Product> getAllProduct(Farm farm) {
-//        farm.getProducts().stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
-//        System.out.printf("%n");
-        System.out.println(farm.getProducts());
-        return farm.getProducts();
-    }
+//    public List<Product> getAllProduct(Farm farm) {
+////        farm.getProducts().stream().collect(Collectors.groupingBy(Product::getProductName, Collectors.counting())).forEach((key, value) -> System.out.printf("%d %s ", value, key));
+////        System.out.printf("%n");
+//        System.out.println(farm.getProducts());
+//        return farm.getProducts();
+//    }
 }
